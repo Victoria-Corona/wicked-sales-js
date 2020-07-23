@@ -34,6 +34,25 @@ app.use((err, req, res, next) => {
   }
 });
 
+app.get('/api/products', (req, res, next) => {
+  const sql = `
+    select *
+      from "products"
+  `;
+
+  db.query(sql)
+    .then(result => {
+      const products = result.rows;
+      res.status(200).json(products);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        error: 'An unexpected error occured.'
+      });
+    });
+});
+
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
   console.log('Listening on port', process.env.PORT);
