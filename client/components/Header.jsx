@@ -3,7 +3,11 @@ import React from 'react';
 function PageTitle(props) {
   return (
     <div>
-      <i className="fa fa-usd" aria-hidden="true"></i><h1>{props.text}</h1>
+      <h4 className="title">
+        <p className="titleText">
+          <i className="fas fa-dollar-sign"></i> {props.text}
+        </p>
+      </h4>
     </div>
   );
 }
