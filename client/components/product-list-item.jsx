@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ProductList(props) {
+function ProductListItem(props) {
   return (
     <div className="card">
       <div className="card-body">
@@ -12,4 +12,4 @@ function ProductList(props) {
   );
 }
 
-export default ProductList;
+export default ProductListItem;
