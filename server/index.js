@@ -42,6 +42,29 @@ app.get('/api/products', (req, res, next) => {
     });
 });
 
+app.get('/api/products/:productId', (req, res, next) => {
+  const id = parseInt(req.params.productId, 10);
+
+  const sql = `
+  select *
+      from products
+      where "productId" = $1
+  `;
+
+  const params = [id];
+
+  db.query(sql, params)
+    .then(result => {
+      const product = result.rows[0];
+      if (!product) {
+        next();
+      } else {
+        res.status(200).json(product);
+      }
+    })
+    .catch(err => next(err));
+});
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
