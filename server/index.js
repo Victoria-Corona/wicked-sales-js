@@ -44,6 +44,11 @@ app.get('/api/products', (req, res, next) => {
 
 app.get('/api/products/:productId', (req, res, next) => {
   const id = parseInt(req.params.productId, 10);
+  if (!Number.isInteger(id) || id <= 0) {
+    return res.status(400).json({
+      error: '"id" must be a positive integer'
+    });
+  }
 
   const sql = `
   select *
@@ -57,7 +62,7 @@ app.get('/api/products/:productId', (req, res, next) => {
     .then(result => {
       const product = result.rows[0];
       if (!product) {
-        next();
+        next(new ClientError(`Cannot find product with id of ${id}`, 404));
       } else {
         res.status(200).json(product);
       }
