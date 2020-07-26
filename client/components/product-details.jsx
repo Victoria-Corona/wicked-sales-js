@@ -1,4 +1,5 @@
 import React from 'react';
+import ProductList from './product-list';
 
 class ProductDetails extends React.Component {
   constructor(props) {
@@ -21,7 +22,9 @@ class ProductDetails extends React.Component {
   }
 
   render() {
-    return null;
+    return (
+      <ProductList />
+    );
   }
 }
 
