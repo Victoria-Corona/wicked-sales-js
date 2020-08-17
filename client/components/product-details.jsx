@@ -1,5 +1,4 @@
 import React from 'react';
-import ProductList from './product-list';
 
 class ProductDetails extends React.Component {
   constructor(props) {
@@ -10,7 +9,7 @@ class ProductDetails extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/api/products/1', {
+    fetch(`/api/products/${this.props.params.productId}`, {
       method: 'GET'
     })
       .then(res => res.json()).then(data => {
@@ -22,9 +21,15 @@ class ProductDetails extends React.Component {
   }
 
   render() {
-    return (
-      <ProductList />
-    );
+    if (!this.state.product) {
+      return null;
+    } else {
+      return (
+        <div>
+          <p>Test text</p>
+        </div>
+      );
+    }
   }
 }
 
