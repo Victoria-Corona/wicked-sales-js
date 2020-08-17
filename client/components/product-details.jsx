@@ -24,9 +24,14 @@ class ProductDetails extends React.Component {
     if (!this.state.product) {
       return null;
     } else {
+      const priceAdjust = <p>&#36;{(this.state.product.price / 100).toFixed(2)}</p>;
       return (
         <div>
-          <p>Test text</p>
+          <p>{this.state.product.name}</p>
+          {priceAdjust}
+          <img src={this.state.product.image}></img>
+          <p>{this.state.product.shortDescription}</p>
+          <p>{this.state.product.longDescription}</p>
         </div>
       );
     }
