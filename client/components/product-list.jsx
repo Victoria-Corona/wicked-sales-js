@@ -32,11 +32,13 @@ class ProductList extends React.Component {
           <div className="card-deck">
             {
               this.state.products.map(product => {
-                return <ProductListItem key={product.name}
+                return <ProductListItem key={product.productId}
                   name={product.name}
+                  productId={product.productId}
                   price={product.price}
                   image={product.image}
                   desc={product.shortDescription}
+                  setView={this.props.setView}
                 />;
               })
             }

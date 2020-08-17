@@ -4,6 +4,19 @@
   object-fit: contain;
 }
 
+.preview {
+  object-fit: contain;
+  max-height: 500px;
+}
+
+.muted {
+  color: #777777;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
 h6 {
   line-height: 3em;
 }
