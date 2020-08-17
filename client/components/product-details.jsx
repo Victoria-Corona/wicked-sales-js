@@ -26,10 +26,10 @@ class ProductDetails extends React.Component {
     } else {
       const priceAdjust = <h5 className="muted">&#36;{(this.state.product.price / 100).toFixed(2)}</h5>;
       return (
-        <div className="container card p-4">
+        <div className="card p-4 m-4">
           <div className="row">
             <div>
-              <p className="muted"><i className="fas fa-chevron-left"></i> Back to catalog</p>
+              <p className="muted ml-5 pointer" onClick={() => this.props.setView('catalog', {})}><i className="fas fa-chevron-left"></i> Back to catalog</p>
             </div>
           </div>
           <div className="row">
@@ -42,7 +42,7 @@ class ProductDetails extends React.Component {
               <p>{this.state.product.shortDescription}</p>
             </div>
           </div>
-          <div className="row mt-5">
+          <div className="row p-3">
             <p>{this.state.product.longDescription}</p>
           </div>
         </div>
