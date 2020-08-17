@@ -24,14 +24,27 @@ class ProductDetails extends React.Component {
     if (!this.state.product) {
       return null;
     } else {
-      const priceAdjust = <p>&#36;{(this.state.product.price / 100).toFixed(2)}</p>;
+      const priceAdjust = <h5 className="muted">&#36;{(this.state.product.price / 100).toFixed(2)}</h5>;
       return (
-        <div>
-          <p>{this.state.product.name}</p>
-          {priceAdjust}
-          <img src={this.state.product.image}></img>
-          <p>{this.state.product.shortDescription}</p>
-          <p>{this.state.product.longDescription}</p>
+        <div className="container card p-4">
+          <div className="row">
+            <div>
+              <p className="muted"><i className="fas fa-chevron-left"></i> Back to catalog</p>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-5">
+              <img className="img-fluid preview" src={this.state.product.image}></img>
+            </div>
+            <div className="col-7">
+              <h3>{this.state.product.name}</h3>
+              {priceAdjust}
+              <p>{this.state.product.shortDescription}</p>
+            </div>
+          </div>
+          <div className="row mt-5">
+            <p>{this.state.product.longDescription}</p>
+          </div>
         </div>
       );
     }

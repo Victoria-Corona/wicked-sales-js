@@ -4,6 +4,14 @@
   object-fit: contain;
 }
 
+.preview {
+  object-fit: contain;
+}
+
+.muted {
+  color: #777777;
+}
+
 h6 {
   line-height: 3em;
 }
