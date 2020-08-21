@@ -70,7 +70,7 @@ app.get('/api/products/:productId', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/carts', (req, res, next) => {
+app.get('/api/cart', (req, res, next) => {
   const sql = `
   select *
   from carts`;
@@ -86,6 +86,30 @@ app.get('/api/carts', (req, res, next) => {
         error: 'An unexpected error occured.'
       });
     });
+});
+
+app.post('/api/cart', (req, res, next) => {
+  const productId = parseInt(req.body.productId, 10);
+
+  if (NaN(productId) || productId <= 0) {
+    return res.status(400).json({
+      error: 'productId must be a positive integer'
+    });
+  }
+
+  const sql = `
+  select "price"
+  from "products"
+  where "productId" = $1
+  `;
+
+  const params = [productId];
+
+  db.query(sql, params)
+    .then()
+    .then()
+    .then()
+    .catch(err => next(err));
 });
 
 app.use('/api', (req, res, next) => {
