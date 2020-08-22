@@ -91,7 +91,7 @@ app.get('/api/cart', (req, res, next) => {
 app.post('/api/cart', (req, res, next) => {
   const productId = parseInt(req.body.productId, 10);
 
-  if (NaN(productId) || productId <= 0) {
+  if (isNaN(productId) || productId <= 0) {
     return res.status(400).json({
       error: 'productId must be a positive integer'
     });
@@ -106,10 +106,28 @@ app.post('/api/cart', (req, res, next) => {
   const params = [productId];
 
   db.query(sql, params)
-    .then()
-    .then()
-    .then()
-    .catch(err => next(err));
+    .then(result => {
+      if (result.rows.length === 0) {
+        throw (new ClientError(`Cannot find product with ID of ${productId}`, 400));
+      }
+      const price = result.rows[0].price;
+      const sql = `
+        insert into "carts" ("cartId", "createdAt")
+          values (default, default)
+          returning "cartId"
+        `;
+      return db.query(sql)
+        .then(result => {
+          const cartId = result.rows[0];
+          return {
+            cartId: cartId.cartId,
+            price: price
+          };
+        });
+    })
+    .then(priceAndCartId => {
+      // console.log(priceAndCartId);
+    });
 });
 
 app.use('/api', (req, res, next) => {
