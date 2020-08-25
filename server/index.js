@@ -71,21 +71,36 @@ app.get('/api/products/:productId', (req, res, next) => {
 });
 
 app.get('/api/cart', (req, res, next) => {
-  const sql = `
-  select *
-  from carts`;
 
-  db.query(sql)
-    .then(result => {
-      const cart = result.rows;
-      res.status(200).json(cart);
-    })
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({
-        error: 'An unexpected error occured.'
+  if (!req.session.cartId) {
+    return res.json([]);
+  } else {
+    const sql = `
+    select "c"."cartItemId",
+       "c"."price",
+       "p"."productId",
+       "p"."image",
+       "p"."name",
+       "p"."shortDescription"
+  from "cartItems" as "c"
+  join "products" as "p" using ("productId")
+ where "c"."cartId" = $1
+    `;
+
+    const params = [req.session.cartId];
+
+    db.query(sql, params)
+      .then(result => {
+        const cart = result.rows;
+        res.status(200).json(cart);
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(500).json({
+          error: 'An unexpected error occured.'
+        });
       });
-    });
+  }
 });
 
 app.post('/api/cart', (req, res, next) => {
@@ -111,23 +126,59 @@ app.post('/api/cart', (req, res, next) => {
         throw (new ClientError(`Cannot find product with ID of ${productId}`, 400));
       }
       const price = result.rows[0].price;
-      const sql = `
+
+      if (req.session.cartId) {
+        return {
+          cartId: req.session.cartId,
+          price: price
+        };
+      } else {
+        const sql = `
         insert into "carts" ("cartId", "createdAt")
           values (default, default)
           returning "cartId"
         `;
-      return db.query(sql)
+        return db.query(sql)
+          .then(result => {
+            const cartId = result.rows[0];
+            return {
+              cartId: cartId.cartId,
+              price: price
+            };
+          });
+      }
+    })
+    .then(result => {
+      req.session.cartId = result.cardId;
+      const sql = `
+      insert into "cartItems" ("cartId", "productId", "price")
+        values ($1, $2, $3)
+        returning "cartItemId"
+      `;
+      const params = [result.cartId, productId, result.price];
+      return db.query(sql, params)
+        .then(result => result.rows[0]);
+    })
+    .then(result => {
+      const sql = `
+        select "c"."cartItemId",
+        "c"."price",
+        "p"."productId",
+        "p"."image",
+        "p"."name",
+        "p"."shortDescription"
+          from "cartItems" as "c"
+          join "products" as "p" using ("productId")
+          where "c"."cartItemId" = $1
+      `;
+      const params = [result.cartItemId];
+      return db.query(sql, params)
         .then(result => {
-          const cartId = result.rows[0];
-          return {
-            cartId: cartId.cartId,
-            price: price
-          };
+          const item = result.rows[0];
+          res.status(201).json(item);
         });
     })
-    .then(priceAndCartId => {
-      // console.log(priceAndCartId);
-    });
+    .catch(err => next(err));
 });
 
 app.use('/api', (req, res, next) => {
