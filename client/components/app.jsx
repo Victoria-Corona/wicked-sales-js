@@ -60,20 +60,19 @@ export default class App extends React.Component {
   }
 
   render() {
-    if (this.state.view.name === 'catalog') {
-      return (
-        <>
-          <PageTitle text="Wicked Sales" cart={this.state.cart}/>
-          <ProductList setView={this.setView}/>
-        </>
-      );
-    } else if (this.state.view.name === 'details') {
-      return (
-        <>
-          <PageTitle text="Wicked Sales" cart={this.state.cart}/>
-          <ProductDetails setView={this.setView} params={this.state.view.params} addToCart={this.addToCart}/>
-        </>
-      );
+    const view = this.state.view.name;
+    let renderPage;
+    if (view === 'catalog') {
+      renderPage = <ProductList setView={this.setView}/>;
+
+    } else if (view === 'details') {
+      renderPage = <ProductDetails setView={this.setView} params={this.state.view.params} addToCart={this.addToCart}/>;
     }
+    return (
+      <>
+        <PageTitle text="Wicked Sales" cart={this.state.cart} />
+        {renderPage}
+      </>
+    );
   }
 }
