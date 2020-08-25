@@ -12,12 +12,9 @@ class ProductDetails extends React.Component {
     fetch(`/api/products/${this.props.params.productId}`, {
       method: 'GET'
     })
-      .then(res => res.json()).then(data => {
-        this.setState({ product: data });
-      })
-      .catch(error => {
-        console.error(error.message);
-      });
+      .then(res => res.json())
+      .then(data => this.setState({ product: data }))
+      .catch(error => { console.error(error.message); });
   }
 
   render() {
@@ -41,7 +38,7 @@ class ProductDetails extends React.Component {
                 <h3>{this.state.product.name}</h3>
                 {priceAdjust}
                 <p>{this.state.product.shortDescription}</p>
-                <button type="button" className="btn btn-primary">Add to Cart</button>
+                <button type="button" className="btn btn-primary" onClick={() => this.props.addToCart(this.state.product)}>Add to Cart</button>
               </div>
             </div>
             <div className="row p-3">

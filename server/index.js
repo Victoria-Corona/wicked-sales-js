@@ -149,7 +149,7 @@ app.post('/api/cart', (req, res, next) => {
       }
     })
     .then(result => {
-      req.session.cartId = result.cardId;
+      req.session.cartId = result.cartId;
       const sql = `
       insert into "cartItems" ("cartId", "productId", "price")
         values ($1, $2, $3)
