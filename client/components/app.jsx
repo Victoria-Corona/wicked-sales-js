@@ -68,7 +68,7 @@ export default class App extends React.Component {
     } else if (this.state.view.name === 'details') {
       return (
         <>
-          <PageTitle text="Wicked Sales" />
+          <PageTitle text="Wicked Sales" cart={this.state.cart}/>
           <ProductDetails setView={this.setView} params={this.state.view.params}/>
         </>
       );
