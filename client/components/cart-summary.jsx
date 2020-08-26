@@ -1,36 +1,54 @@
 import React from 'react';
 import CartSummaryItem from './cart-summary-item';
 
-function CartSummary(props) {
-  const listOfItems = props.cart.map(item => {
-    return (
-      <CartSummaryItem key={item.cartItemId}
-        name={item.name}
-        img={item.image}
-        price={item.price}
-        shortDesc={item.shortDescription}
-        setView={props.setView}/>
-    );
-  });
-  return (
-    <>
-      <div className="container">
-        <div className="row">
-          <div className="ml-5 mt-3 p-2">
-            <p className="muted m-0 pointer" onClick={() => props.setView('catalog', {})}><i className="fas fa-chevron-left"></i> Back to catalog</p>
-          </div>
-        </div>
-        <h2 className="pl-3 m-3">My Cart</h2>
-        <div>
-          {listOfItems}
-        </div>
-        <div>
-          <p>Total</p>
-        </div>
-      </div>
+class CartSummary extends React.Component {
 
-    </>
-  );
+  render() {
+
+    const price = this.props.cart;
+    const sum = price.reduce((accumulator, currentValue) => {
+      return accumulator + currentValue.price;
+    }, 0);
+
+    const totalAdjust = <span>&#36;{(sum / 100).toFixed(2)}</span>;
+
+    const listOfItems = this.props.cart.map(item => {
+      return (
+        <CartSummaryItem key={item.cartItemId}
+          name={item.name}
+          img={item.image}
+          price={item.price}
+          shortDesc={item.shortDescription}
+          setView={this.props.setView}/>
+      );
+    });
+
+    if (this.props.cart.length === 0) {
+      return (
+        <div>Empty Cart</div>
+      );
+    } else {
+      return (
+        <>
+          <div className="container">
+            <div className="row">
+              <div className="ml-5 mt-3 p-2">
+                <p className="muted m-0 pointer" onClick={() => this.props.setView('catalog', {})}><i className="fas fa-chevron-left"></i> Back to catalog</p>
+              </div>
+            </div>
+            <h2 className="pl-3 m-3">My Cart</h2>
+            <div>
+              {listOfItems}
+            </div>
+            <div>
+              <h4 className="muted">Total Price&#58; {totalAdjust}</h4>
+            </div>
+          </div>
+
+        </>
+      );
+    }
+  }
 }
 
 export default CartSummary;

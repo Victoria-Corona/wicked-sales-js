@@ -8,7 +8,7 @@ function PageTitle(props) {
           <p className="m-0"><i className="fas fa-dollar-sign"></i> {props.text}</p>
         </div>
         <div className="m-3 d-flex align-items-center">
-          <p className="m-0" onClick={() => props.setView('cart', {})}>{props.cart.length} Items<i className="fas fa-shopping-cart"></i></p>
+          <p className="m-0 resize" onClick={() => props.setView('cart', {})}>{props.cart.length} Items </p><i className="fas fa-shopping-cart"></i>
         </div>
       </h4>
     </div>
