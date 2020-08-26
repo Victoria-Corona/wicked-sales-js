@@ -25,7 +25,15 @@ class CartSummary extends React.Component {
 
     if (this.props.cart.length === 0) {
       return (
-        <div>Empty Cart</div>
+        <div className="card p-4 m-4">
+          <div className="m-auto">
+            <div className="m-4">Your Shopping Cart Is Empty</div>
+            <div className="d-flex justify-content-center">
+              <p className="muted m-4 pointer" onClick={() => this.props.setView('catalog', {})}><i className="fas fa-chevron-left"></i> Continue Shopping</p>
+            </div>
+          </div>
+        </div>
+
       );
     } else {
       return (
