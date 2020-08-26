@@ -181,6 +181,37 @@ app.post('/api/cart', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.post('/api/orders', (req, res, next) => {
+  if (!res.session.cardId) {
+    return res.status(400).json({
+      error: 'No cartId found'
+    });
+  }
+
+  const name = req.body.name;
+  const creditCard = req.body.creditCard;
+  const shipping = req.body.shippingAddress;
+
+  if (!name) {
+    return res.status(400).json({
+      error: 'Name is required'
+    });
+  }
+
+  if (!creditCard) {
+    return res.status(400).json({
+      error: 'Credit Card number is required'
+    });
+  }
+
+  if (!shipping) {
+    return res.status(400).json({
+      error: 'Shipping address is required'
+    });
+  }
+
+});
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
