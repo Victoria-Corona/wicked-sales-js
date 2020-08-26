@@ -48,8 +48,8 @@ class CartSummary extends React.Component {
             <div>
               {listOfItems}
             </div>
-            <div>
-              <h4 className="muted">Total Price&#58; {totalAdjust}</h4>
+            <div className="pl-3 m-3">
+              <h4>Total Price&#58; {totalAdjust}</h4>
             </div>
           </div>
 
