@@ -181,6 +181,56 @@ app.post('/api/cart', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.post('/api/orders', (req, res, next) => {
+  if (!req.session.cartId) {
+    return res.status(400).json({
+      error: 'No cartId found'
+    });
+  }
+
+  const name = req.body.name;
+  const creditCard = req.body.creditCard;
+  const shipping = req.body.shippingAddress;
+
+  if (!name) {
+    return res.status(400).json({
+      error: 'Name is required'
+    });
+  }
+
+  if (!creditCard) {
+    return res.status(400).json({
+      error: 'Credit Card number is required'
+    });
+  }
+
+  if (!shipping) {
+    return res.status(400).json({
+      error: 'Shipping address is required'
+    });
+  }
+
+  const sql = `
+    insert into "orders" ("cartId", "name", "creditCard", "shippingAddress")
+    values ($1, $2, $3, $4)
+    returning "orderId", "createdAt", "name", "creditCard", "shippingAddress"
+  `;
+  const params = [req.session.cartId, name, creditCard, shipping];
+
+  db.query(sql, params)
+    .then(result => {
+      delete req.session.cartId;
+      res.status(201).json(result.rows[0]);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        error: 'An unexpected error occurred'
+      });
+    });
+
+});
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
