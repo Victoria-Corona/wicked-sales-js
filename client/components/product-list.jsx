@@ -29,7 +29,7 @@ class ProductList extends React.Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="card-deck">
+          <div className="card-deck pointer">
             {
               this.state.products.map(product => {
                 return <ProductListItem key={product.productId}

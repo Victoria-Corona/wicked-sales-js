@@ -182,7 +182,7 @@ app.post('/api/cart', (req, res, next) => {
 });
 
 app.post('/api/orders', (req, res, next) => {
-  if (!res.session.cardId) {
+  if (!req.session.cartId) {
     return res.status(400).json({
       error: 'No cartId found'
     });
@@ -209,6 +209,25 @@ app.post('/api/orders', (req, res, next) => {
       error: 'Shipping address is required'
     });
   }
+
+  const sql = `
+    insert into "orders" ("cartId", "name", "creditCard", "shippingAddress")
+    values ($1, $2, $3, $4)
+    returning *
+  `;
+  const params = [req.session.cartId, name, creditCard, shipping];
+
+  db.query(sql, params)
+    .then(result => {
+      delete req.session.cartId;
+      res.status(201).json(result.rows[0]);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        error: 'An unexpected error occurred'
+      });
+    });
 
 });
 
