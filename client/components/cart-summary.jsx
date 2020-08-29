@@ -48,9 +48,11 @@ class CartSummary extends React.Component {
             <div>
               {listOfItems}
             </div>
-            <div className="pl-3 m-3">
+            <div className="p-3 m-3 d-flex justify-content-between">
               <h4>Total Price&#58; {totalAdjust}</h4>
+              <button type="button" className="btn btn-primary" onClick={() => this.props.setView('checkout', {})}>Checkout</button>
             </div>
+
           </div>
 
         </>

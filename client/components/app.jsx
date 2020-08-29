@@ -60,6 +60,25 @@ export default class App extends React.Component {
       });
   }
 
+  placeOrder() {
+    const data = {
+      name: this.state.cart.name,
+      creditCard: this.state.cart.creditCard,
+      shippingAddress: this.state.cart.shippingAddress
+    };
+
+    fetch('/api/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .then(data => this.setState({ cart: [] }))
+      .catch(err => console.error(err.message));
+  }
+
   render() {
     const view = this.state.view.name;
     let renderPage;
