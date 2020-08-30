@@ -40,8 +40,8 @@ class CartSummary extends React.Component {
         <>
           <div className="container">
             <div className="row">
-              <div className="ml-5 mt-3 p-2">
-
+              <div className="ml-5 mt-3">
+                <p className="muted m-0 pointer" onClick={() => this.props.setView('catalog', {})}><i className="fas fa-chevron-left"></i> Back to catalog</p>
               </div>
             </div>
             <h2 className="pl-3 m-3">My Cart</h2>
