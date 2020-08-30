@@ -22,7 +22,13 @@ export default class CheckoutForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.placeOrder(this.state);
+    const orderInfo = {
+      name: this.state.name,
+      creditCard: this.state.creditCard,
+      shippingAddress: this.state.shippingAddress
+    };
+    this.props.placeOrder(orderInfo);
+    this.setState({ name: '', creditCard: '', shippingAddress: '' });
   }
 
   render() {
@@ -34,7 +40,7 @@ export default class CheckoutForm extends React.Component {
     const totalAdjust = <span>&#36;{(sum / 100).toFixed(2)}</span>;
 
     return (
-      <div className="ml-5 container">
+      <div className="mt-5 container">
         <div className="pl-3 mt-3">
           <h2>My Cart</h2>
           <p className="muted mt-3">Order Total: {totalAdjust}</p>
