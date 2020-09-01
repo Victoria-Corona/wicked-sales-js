@@ -14,7 +14,7 @@ class ProductList extends React.Component {
   }
 
   getProducts() {
-    fetch('api/products', {
+    fetch('api/yarnProducts', {
       method: 'GET'
     })
       .then(res => res.json()).then(data => {

@@ -19,14 +19,14 @@ app.get('/api/health-check', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/products', (req, res, next) => {
+app.get('/api/yarnProducts', (req, res, next) => {
   const sql = `
     select "image",
            "name",
            "price",
            "productId",
            "shortDescription"
-      from "products"
+      from "yarnProducts"
   `;
 
   db.query(sql)
@@ -42,7 +42,7 @@ app.get('/api/products', (req, res, next) => {
     });
 });
 
-app.get('/api/products/:productId', (req, res, next) => {
+app.get('/api/yarnProducts/:productId', (req, res, next) => {
   const id = parseInt(req.params.productId, 10);
   if (!Number.isInteger(id) || id <= 0) {
     return res.status(400).json({
@@ -52,7 +52,7 @@ app.get('/api/products/:productId', (req, res, next) => {
 
   const sql = `
   select *
-      from products
+      from  "yarnProducts"
       where "productId" = $1
   `;
 
@@ -83,7 +83,7 @@ app.get('/api/cart', (req, res, next) => {
        "p"."name",
        "p"."shortDescription"
   from "cartItems" as "c"
-  join "products" as "p" using ("productId")
+  join "yarnProducts" as "p" using ("productId")
  where "c"."cartId" = $1
     `;
 
@@ -114,7 +114,7 @@ app.post('/api/cart', (req, res, next) => {
 
   const sql = `
   select "price"
-  from "products"
+  from "yarnProducts"
   where "productId" = $1
   `;
 
@@ -168,7 +168,7 @@ app.post('/api/cart', (req, res, next) => {
         "p"."name",
         "p"."shortDescription"
           from "cartItems" as "c"
-          join "products" as "p" using ("productId")
+          join "yarnProducts" as "p" using ("productId")
           where "c"."cartItemId" = $1
       `;
       const params = [result.cartItemId];

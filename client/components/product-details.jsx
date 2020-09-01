@@ -9,7 +9,7 @@ class ProductDetails extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`/api/products/${this.props.params.productId}`, {
+    fetch(`/api/yarnProducts/${this.props.params.productId}`, {
       method: 'GET'
     })
       .then(res => res.json())
