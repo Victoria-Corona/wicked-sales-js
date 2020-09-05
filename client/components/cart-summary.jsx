@@ -25,11 +25,11 @@ class CartSummary extends React.Component {
 
     if (this.props.cart.length === 0) {
       return (
-        <div className="card p-4 m-4">
+        <div className="card p-4 m-4 body-text">
           <div className="m-auto">
-            <div className="m-4">Your Shopping Cart Is Empty</div>
+            <div className="m-4">Your Shopping Cart Is Empty!</div>
             <div className="d-flex justify-content-center">
-              <p className="muted m-4 pointer" onClick={() => this.props.setView('catalog', {})}><i className="fas fa-chevron-left"></i> Continue Shopping</p>
+              <p className="muted m-4 pointer" onClick={() => this.props.setView('catalog', {})}><i className="fas fa-angle-double-left"></i> Continue Shopping</p>
             </div>
           </div>
         </div>
@@ -38,10 +38,10 @@ class CartSummary extends React.Component {
     } else {
       return (
         <>
-          <div className="container">
+          <div className="container body-text">
             <div className="row">
               <div className="ml-5 mt-3">
-                <p className="muted m-0 pointer" onClick={() => this.props.setView('catalog', {})}><i className="fas fa-chevron-left"></i> Back to catalog</p>
+                <p className="muted m-0 pointer text" onClick={() => this.props.setView('catalog', {})}><i className="fas fa-angle-double-left"></i> Back to catalog</p>
               </div>
             </div>
             <h2 className="pl-3 m-3">My Cart</h2>
@@ -50,7 +50,7 @@ class CartSummary extends React.Component {
             </div>
             <div className="p-3 m-3 d-flex justify-content-between">
               <h4>Total Price&#58; {totalAdjust}</h4>
-              <button type="button" className="btn btn-primary" onClick={() => this.props.setView('checkout', {})}>Checkout</button>
+              <button type="button" onClick={() => this.props.setView('checkout', {})}>Checkout</button>
             </div>
 
           </div>

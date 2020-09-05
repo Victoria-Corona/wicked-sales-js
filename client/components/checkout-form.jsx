@@ -40,7 +40,7 @@ export default class CheckoutForm extends React.Component {
     const totalAdjust = <span>&#36;{(sum / 100).toFixed(2)}</span>;
 
     return (
-      <div className="mt-5 container">
+      <div className="mt-5 container body-text">
         <div className="pl-3 mt-3">
           <h2>My Cart</h2>
           <p className="muted mt-3">Order Total: {totalAdjust}</p>
@@ -61,8 +61,8 @@ export default class CheckoutForm extends React.Component {
             </div>
           </div>
           <div className="d-flex justify-content-between mt-4">
-            <p className="muted m-0 pointer pl-3" onClick={() => this.props.setView('catalog', {})}><i className="fas fa-chevron-left"></i> Continue Shopping</p>
-            <button type="submit" className="btn btn-primary">Place Order</button>
+            <p className="muted m-0 pointer pl-3 text" onClick={() => this.props.setView('catalog', {})}><i className="fas fa-angle-double-left"></i> Continue Shopping</p>
+            <button type="submit">Place Order</button>
           </div>
         </form>
       </div>

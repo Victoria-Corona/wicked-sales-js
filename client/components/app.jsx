@@ -91,7 +91,7 @@ export default class App extends React.Component {
     }
     return (
       <>
-        <PageTitle text="Wicked Sales" cart={this.state.cart} setView={this.setView}/>
+        <PageTitle cart={this.state.cart} setView={this.setView}/>
         {renderPage}
       </>
     );

@@ -27,9 +27,12 @@ class ProductList extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="row">
-          <div className="card-deck pointer">
+      <div>
+        <div className="banner">
+        </div>
+        <div className="container">
+          <div className="row">
+
             {
               this.state.products.map(product => {
                 return <ProductListItem key={product.productId}
@@ -42,8 +45,8 @@ class ProductList extends React.Component {
                 />;
               })
             }
-          </div>
 
+          </div>
         </div>
       </div>
     );
