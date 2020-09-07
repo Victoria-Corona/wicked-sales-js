@@ -26,8 +26,21 @@ class ProductList extends React.Component {
   }
 
   render() {
+    let display;
+    if (this.props.modal) {
+      display = 'hidden';
+    } else {
+      display = '';
+    }
+
     return (
       <div>
+        <div className={`modal-overlay ${display}`}>
+          <div className="modal-content">
+            <p className="m-4">test test</p>
+            <button onClick={this.props.hideModal}>accept</button>
+          </div>
+        </div>
         <div className="banner">
         </div>
         <div className="container">
