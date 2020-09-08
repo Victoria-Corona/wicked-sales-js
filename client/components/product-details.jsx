@@ -9,7 +9,7 @@ class ProductDetails extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`/api/products/${this.props.params.productId}`, {
+    fetch(`/api/yarnProducts/${this.props.params.productId}`, {
       method: 'GET'
     })
       .then(res => res.json())
@@ -23,11 +23,11 @@ class ProductDetails extends React.Component {
     } else {
       const priceAdjust = <h5 className="muted">&#36;{(this.state.product.price / 100).toFixed(2)}</h5>;
       return (
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center body-text">
           <div className="container card p-4 m-4">
             <div className="row">
               <div>
-                <p className="muted ml-5 pointer" onClick={() => this.props.setView('catalog', {})}><i className="fas fa-chevron-left"></i> Back to catalog</p>
+                <p className="muted ml-5 pointer text" onClick={() => this.props.setView('catalog', {})}><i className="fas fa-angle-double-left"></i> Back to catalog</p>
               </div>
             </div>
             <div className="row">
@@ -38,7 +38,13 @@ class ProductDetails extends React.Component {
                 <h3>{this.state.product.name}</h3>
                 {priceAdjust}
                 <p>{this.state.product.shortDescription}</p>
-                <button type="button" className="btn btn-primary" onClick={() => this.props.addToCart(this.state.product)}>Add to Cart</button>
+                <ul>
+                  <li><span>Fiber&#58; </span>{this.state.product.fiber}</li>
+                  <li><span>Color&#58; </span>{this.state.product.color}</li>
+                  <li><span>Length&#58; </span>{this.state.product.length}</li>
+                  <li><span>Care Instructions&#58; </span>{this.state.product.careInstructions}</li>
+                </ul>
+                <button type="button" onClick={() => this.props.addToCart(this.state.product)}>Add to Cart</button>
               </div>
             </div>
             <div className="row p-3">

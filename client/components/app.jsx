@@ -13,12 +13,14 @@ export default class App extends React.Component {
         name: 'catalog',
         params: {}
       },
-      cart: []
+      cart: [],
+      isAccepted: false
     };
     this.setView = this.setView.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.getCartItems = this.getCartItems.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
+    this.hideModal = this.hideModal.bind(this);
   }
 
   setView(name, params) {
@@ -28,6 +30,12 @@ export default class App extends React.Component {
     };
     this.setState({
       view: newView
+    });
+  }
+
+  hideModal() {
+    this.setState({
+      isAccepted: true
     });
   }
 
@@ -80,8 +88,7 @@ export default class App extends React.Component {
     const view = this.state.view.name;
     let renderPage;
     if (view === 'catalog') {
-      renderPage = <ProductList setView={this.setView}/>;
-
+      renderPage = <ProductList setView={this.setView} hideModal={this.hideModal} modal={this.state.isAccepted}/>;
     } else if (view === 'details') {
       renderPage = <ProductDetails setView={this.setView} params={this.state.view.params} addToCart={this.addToCart}/>;
     } else if (view === 'cart') {
@@ -91,7 +98,7 @@ export default class App extends React.Component {
     }
     return (
       <>
-        <PageTitle text="Wicked Sales" cart={this.state.cart} setView={this.setView}/>
+        <PageTitle cart={this.state.cart} setView={this.setView}/>
         {renderPage}
       </>
     );
