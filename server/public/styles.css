@@ -1,3 +1,12 @@
+.action {
+  transform: translateY(0px);
+  transition: transform .6s ease;
+}
+
+.action:hover {
+  transform: translateY(-10px)
+}
+
 .body-text {
   font-family: 'Neucha', cursive;
 }
