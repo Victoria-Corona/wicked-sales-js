@@ -1,3 +1,12 @@
+.action {
+  transform: translateY(0px);
+  transition: transform .6s ease;
+}
+
+.action:hover {
+  transform: translateY(-10px)
+}
+
 .body-text {
   font-family: 'Neucha', cursive;
 }
@@ -20,7 +29,7 @@
   background-position: 50% 75%;
 }
  button {
-  height: 2rem;
+  height: 3rem;
   width: 100px;
   padding: 0rem 1.25rem;
   border: none;
