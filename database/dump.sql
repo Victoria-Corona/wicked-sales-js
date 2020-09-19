@@ -279,6 +279,8 @@ ALTER TABLE ONLY public."yarnProducts" ALTER COLUMN "productId" SET DEFAULT next
 --
 
 COPY public."cartItems" ("cartItemId", "cartId", "productId", price) FROM stdin;
+51	44	3	2800
+52	44	2	2200
 \.
 
 
@@ -287,6 +289,7 @@ COPY public."cartItems" ("cartItemId", "cartId", "productId", price) FROM stdin;
 --
 
 COPY public.carts ("cartId", "createdAt") FROM stdin;
+44	2020-09-08 20:40:21.604281-07
 \.
 
 
@@ -330,14 +333,14 @@ COPY public."yarnProducts" ("productId", name, price, fiber, color, weight, leng
 -- Name: cartItems_cartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 50, true);
+SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 52, true);
 
 
 --
 -- Name: carts_cartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."carts_cartId_seq"', 43, true);
+SELECT pg_catalog.setval('public."carts_cartId_seq"', 44, true);
 
 
 --
