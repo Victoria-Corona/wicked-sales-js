@@ -27,6 +27,7 @@ export default class CheckoutForm extends React.Component {
         isFilled: false
       });
       this.unfulfilled();
+      this.message();
       event.preventDefault();
     } else {
       this.setState({
@@ -51,6 +52,10 @@ export default class CheckoutForm extends React.Component {
     }
   }
 
+  message() {
+    if (this.state.isFilled === '') { return 'hidden'; }
+  }
+
   render() {
     const price = this.props.cart;
     const sum = price.reduce((accumulator, currentValue) => {
@@ -61,12 +66,16 @@ export default class CheckoutForm extends React.Component {
     const validate = this.unfulfilled();
     const formValidation = `form-control ${validate}`;
 
+    const message = this.message();
+    const unhide = `pl-3 font-weight-bold ${message}`;
+
     return (
       <div className="mt-5 container body-text">
         <div className="pl-3 mt-3">
           <h2>My Cart</h2>
           <p className="muted mt-3">Order Total: {totalAdjust}</p>
         </div>
+        <div className={unhide}>Please fill out all fields.</div>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <div className="pl-3 mt-3">
