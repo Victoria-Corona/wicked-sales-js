@@ -30,7 +30,7 @@ export default class CheckoutForm extends React.Component {
       event.preventDefault();
     } else {
       this.setState({
-        isFilled: true
+        isFilled: ''
       });
       event.preventDefault();
       const orderInfo = {
@@ -49,7 +49,6 @@ export default class CheckoutForm extends React.Component {
     } else {
       return '';
     }
-
   }
 
   render() {
@@ -58,6 +57,7 @@ export default class CheckoutForm extends React.Component {
       return accumulator + currentValue.price;
     }, 0);
     const totalAdjust = <span>&#36;{(sum / 100).toFixed(2)}</span>;
+
     const validate = this.unfulfilled();
     const formValidation = `form-control ${validate}`;
 
