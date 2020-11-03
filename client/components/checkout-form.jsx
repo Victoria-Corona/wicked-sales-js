@@ -21,14 +21,19 @@ export default class CheckoutForm extends React.Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault();
-    const orderInfo = {
-      name: this.state.name,
-      creditCard: this.state.creditCard,
-      shippingAddress: this.state.shippingAddress
-    };
-    this.props.placeOrder(orderInfo);
-    this.setState({ name: '', creditCard: '', shippingAddress: '' });
+    if (this.state.name === '' || this.state.creditCard === '' || this.state.shippingAddress === '') {
+      alert('Worked');
+      event.preventDefault();
+    } else {
+      event.preventDefault();
+      const orderInfo = {
+        name: this.state.name,
+        creditCard: this.state.creditCard,
+        shippingAddress: this.state.shippingAddress
+      };
+      this.props.placeOrder(orderInfo);
+      this.setState({ name: '', creditCard: '', shippingAddress: '' });
+    }
   }
 
   render() {
