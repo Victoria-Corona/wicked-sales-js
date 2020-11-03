@@ -114,6 +114,17 @@ h6 {
   line-height: 3em;
 }
 
+.red {
+  border: 1px solid #b42c41;
+}
+.red::placeholder {
+  color: #b42c41;
+}
+
+.blue {
+  border: 1px solid #28c1cc;
+}
+
 .hidden {
   display: none;
 }

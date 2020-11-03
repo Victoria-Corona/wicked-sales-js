@@ -26,23 +26,9 @@ class ProductList extends React.Component {
   }
 
   render() {
-    let display;
-    if (this.props.modal) {
-      display = 'hidden';
-    } else {
-      display = '';
-    }
 
     return (
       <div>
-        <div className={`modal-overlay ${display}`}>
-          <div className="modal-content card d-flex align-items-center">
-            <p className="m-4">Before accessing this site, please be aware that
-            it is solely for demonstration purpose and all personal information should
-            not be used in this app.</p>
-            <button className="m-2" onClick={this.props.hideModal}>ACCEPT</button>
-          </div>
-        </div>
         <div className="banner">
         </div>
         <div className="container">

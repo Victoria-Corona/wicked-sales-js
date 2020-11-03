@@ -85,10 +85,16 @@ export default class App extends React.Component {
   }
 
   render() {
+    let display;
+    if (this.state.isAccepted) {
+      display = 'hidden';
+    } else {
+      display = '';
+    }
     const view = this.state.view.name;
     let renderPage;
     if (view === 'catalog') {
-      renderPage = <ProductList setView={this.setView} hideModal={this.hideModal} modal={this.state.isAccepted}/>;
+      renderPage = <ProductList setView={this.setView} />;
     } else if (view === 'details') {
       renderPage = <ProductDetails setView={this.setView} params={this.state.view.params} addToCart={this.addToCart}/>;
     } else if (view === 'cart') {
@@ -98,6 +104,16 @@ export default class App extends React.Component {
     }
     return (
       <>
+        <div className={`modal-overlay ${display}`}>
+          <div className="modal-content card d-flex align-items-center">
+            <p className="m-4">
+              Before accessing this site, please be aware that
+              it is solely for demonstration purpose and all personal information should
+              not be used in this app.
+            </p>
+            <button className="m-2" onClick={this.hideModal}>ACCEPT</button>
+          </div>
+        </div>
         <PageTitle cart={this.state.cart} setView={this.setView}/>
         {renderPage}
       </>
